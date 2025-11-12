@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Buscador y Tipificador</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-row">
+      <div class="header-left">
+        <h1>Buscador y tipificador</h1>
+        <p class="muted">Móvil</p>
+      </div>
+
+      <!-- Sección del engranaje / ejecutivo (alineada a la derecha sobre el título en responsivo) -->
+      <div class="header-controls" aria-live="polite">
+        <!-- Theme toggle button -->
+        <div class="theme-toggle">
+          <button id="themeToggle" class="theme-btn" aria-pressed="false" title="Alternar modo claro/oscuro">🌙</button>
+        </div>
+
+        <div class="ejecutivo-display" title="Ejecutivo">
+          <span id="ejecutivoName" class="ejecutivo-name"></span>
+          <button id="gearBtn" class="gear-btn" aria-label="Configurar Ejecutivo">⚙️</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls">
+      <div class="search-group">
+        <input id="searchInput" type="search" placeholder="Escribe una palabra y presiona Enter o haz clic en Buscar" />
+        <button id="searchBtn">Buscar</button>
+      </div>
+
+      <div class="file-status">
+        <span id="fileStatus" class="muted"></span>
+      </div>
+    </section>
+
+    <section class="results">
+      <h2>Resultados</h2>
+      <div id="cardsContainer" class="cards-grid">
+        <!-- Tarjetas generadas aquí -->
+      </div>
+    </section>
+
+    <section class="details">
+      <h2>Tipificador</h2>
+      <div id="inputsContainer" class="inputs-area">
+        <p class="muted">Selecciona un caso para empezar a tipificar.</p>
+      </div>
+      <div id="actions" class="actions" style="display:none;">
+        <div class="actions-left">
+          <button id="copyBtn">Copiar</button>
+        </div>
+        <div class="actions-right">
+          <button id="startBtn" class="btn start" aria-label="Ir a inicio">Inicio</button>
+        </div>
+        <span id="copyStatus" class="muted actions-status"></span>
+      </div>
+    </section>
+
+    <!-- Nueva sección: Información Importante (debe estar debajo de results y details y ocupar todo el ancho) -->
+    <section id="importantInfo" class="important-info" aria-live="polite" style="display:none;">
+      <!-- Se rellenará dinámicamente al clicar una tarjeta -->
+    </section>
+
+    <!-- Botón inferior para "ir a inicio" (debajo de importantInfo) -->
+    <div class="important-action-wrap">
+      <button id="startBtnBottom" class="btn start bottom" aria-label="Ir a inicio">Ir a Inicio</button>
+    </div>
+
+  </main>
+
+  <footer>
+    <!-- <p class="muted">Se carga data.xlsx desde la raíz del proyecto con fetch('/data.xlsx'). Asegúrate de servir la carpeta con un servidor estático (por ejemplo: python -m http.server).</p> -->
+  </footer>
+
+  <!-- Modal para configuración del Ejecutivo (Cédula / C.C.) -->
+  <div id="ejecutivoModal" class="modal-overlay" hidden>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="ejecutivo-title">
+      <div class="modal-header">
+        <h2 id="ejecutivo-title">Configuración del Ejecutivo</h2>
+      </div>
+      <div class="modal-body">
+        <div class="ejecutivo-input-row">
+          <input id="ejecutivoInput" type="text" placeholder="Cédula (C.C.)" />
+          <div class="ejecutivo-controls">
+            <button id="editEjecutivoBtn" class="icon-small-btn" title="Editar">✏️</button>
+            <button id="deleteEjecutivoBtn" class="icon-small-btn" title="Borrar">🗑️</button>
+          </div>
+        </div>
+        <!-- <p class="muted" style="margin-top:8px;">Al aceptar, se consultará agent.xlsx en la raíz. Si la cédula existe en la columna A, se tomará el nombre de la columna B y se mostrará junto al engranaje.</p> -->
+      </div>
+      <div class="modal-footer">
+        <button id="cancelEjecutivoBtn" class="btn ghost">Cancelar</button>
+        <button id="acceptEjecutivoBtn" class="btn">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SheetJS (XLSX) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
